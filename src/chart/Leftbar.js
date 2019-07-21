@@ -4,7 +4,7 @@ import update from 'immutability-helper'
 import { ItemTypes } from './Constants';
 import { useDrop } from 'react-dnd'
 
-export default function Square({black}) {
+export default function Leftbar({black}) {
     const fill = black ? 'black' : 'white';
     const stroke = black ? 'white' : 'black';
 
@@ -42,17 +42,15 @@ export default function Square({black}) {
         }
     });
 
-    const styles = {
-        backgroundColor: fill,
-        color: stroke,
-        width: '700px',
-        height: '700px',
-        border: '1px solid black',
-        position: 'relative',            
-    }
-
     return (
-        <div ref={drop} style={styles} >
+        <div ref={drop} style={{ 
+                backgroundColor: fill,
+                color: stroke,
+                width: '150px',
+                height: '700px',
+                border: '1px solid black',
+                position: 'relative',            
+            }} >
             {renderShape(shapes['knight1'], 'knight1')}
         </div>
     )
