@@ -30,12 +30,11 @@ export default function Arrow({id, shape, name, left, top}) {
   return (
     <div ref={drag} style={getStyles(left, top, isDragging)}>
         <svg width="106" height="76" >
-            {/* <circle cx="50" cy="38" r="30" style={{fill: 'rgb(92, 155, 211)', 'stroke-width':3, stroke: 'rgb(70, 118, 159)'}} /> */}
             <polygon 
                 points="3,20 65,20 65,3 103,38 65,73 65,53 3,53" 
-                style={{fill: 'rgb(92, 155, 211)', 'stroke-width':3, stroke: 'rgb(70, 118, 159)'}}
+                style={{fill: 'rgb(92, 155, 211)', 'strokeWidth':3, stroke: 'rgb(70, 118, 159)'}}
             />
-            <text text-anchor="middle" x="50" y="40" fill="white">{name}</text>
+            <text textAnchor="middle" x="50" y="40" fill="white">{name}</text>
             Sorry, your browser does not support inline SVG.  
         </svg>
     </div>

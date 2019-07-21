@@ -32,9 +32,9 @@ export default function Document({id, shape, name, left, top}) {
         <svg width="106" height="76" >
             <polygon 
                 points="3,73 3,3 103,3 103,63" 
-                style={{fill: 'rgb(92, 155, 211)', 'stroke-width':3, stroke: 'rgb(70, 118, 159)'}}
+                style={{fill: 'rgb(92, 155, 211)', 'strokeWidth':3, stroke: 'rgb(70, 118, 159)'}}
             />
-            <text text-anchor="middle" x="50" y="40" fill="white">{name}</text>
+            <text textAnchor="middle" x="50" y="40" fill="white">{name}</text>
             Sorry, your browser does not support inline SVG.  
         </svg>
     </div>

@@ -83,8 +83,17 @@ export default function Square({black, leftwidth}) {
     );
 
     return (
-        <div ref={drop} style={styles} >
-            {Object.keys(shapes).map(key => renderShape(shapes[key], key))}
-        </div>
+        // <>
+        //     <p>Hello</p>
+        //     <div contenteditable="true">
+        //         <svg height="30" width="200" style={{border: '1px solid'}}>
+        //             <text x="0" y="15">This is SVG</text>
+        //         </svg>
+        //     </div>
+        //     <p>World</p>
+            <div ref={drop} style={styles} >
+                {Object.keys(shapes).map(key => renderShape(shapes[key], key))}
+            </div>
+        // </>
     )
 }
