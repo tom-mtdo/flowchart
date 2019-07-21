@@ -1,10 +1,10 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import Knight from './Knight';
+import Rectangle from './Rectangle';
 import { ItemTypes } from './Constants';
 import { useDrop } from 'react-dnd';
 import update from 'immutability-helper';
 
-export default function Square({black}) {
+export default function Square({black, leftwidth}) {
     const fill = black ? 'black' : 'white';
     const stroke = black ? 'white' : 'black';
     
@@ -39,14 +39,14 @@ export default function Square({black}) {
     const renderShape = (item, id) => {
         switch (item.shape) {
             case 'rectangle':
-                return <Knight id={id} {...item}/>
+                return <Rectangle id={id} {...item}/>
             default:
-                return <Knight id={id} {...item}/>        
+                return <Rectangle id={id} {...item}/>        
         }
     }
 
     const [, drop] = useDrop({
-        accept: ItemTypes.KNIGHT,
+        accept: ItemTypes.SHAPE,
         drop: (item, monitor) => {
             const delta = monitor.getDifferenceFromInitialOffset();
 
@@ -57,7 +57,7 @@ export default function Square({black}) {
                 moveShape(item.id, left, top);
             } else {
                 const uuidv1 = require('uuid/v1');
-                addShape(uuidv1(), item.shape, '', left - 150, top);
+                addShape(uuidv1(), item.shape, item.name, left - leftwidth, top);
             }
         }
     });

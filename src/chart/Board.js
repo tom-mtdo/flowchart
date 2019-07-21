@@ -1,5 +1,4 @@
 import React, { useState, useCallback } from 'react';
-import Knight from './Knight';
 import Square from './Square';
 import Leftbar from './Leftbar';
 import { DndProvider } from 'react-dnd'
@@ -14,8 +13,8 @@ export default function Board() {
     return (
         <DndProvider backend={HTML5Backend}>
             <div style={styles}>
-                <Leftbar black={false}/>
-                <Square black={false}/>
+                <Leftbar black={false} leftwidth={150}/>
+                <Square black={false} leftwidth={150}/>
             </div>
         </DndProvider>
     )

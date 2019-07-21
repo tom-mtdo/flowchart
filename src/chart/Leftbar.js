@@ -1,19 +1,24 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import Knight from './Knight';
+import Rectangle from './Rectangle';
 import update from 'immutability-helper'
 import { ItemTypes } from './Constants';
 import { useDrop } from 'react-dnd'
 
-export default function Leftbar({black}) {
+export default function Leftbar({black,leftwidth}) {
     const fill = black ? 'black' : 'white';
     const stroke = black ? 'white' : 'black';
 
     const [shapes, setShapes] = useState({
-        knight: {shape: 'rectangle', name: '', top: 10, left: 20},
+        rectangle: {shape: 'rectangle', name: 'Process', top: 10, left: 20},
     });
 
     const renderShape = (item, id) => {
-        return <Knight id={id} {...item}/>
+        switch (item.shape) {
+            case 'rectangle':
+                return <Rectangle id={id} {...item}/>
+            default:
+                return <Rectangle id={id} {...item}/>        
+        }
     }
 
     return (
@@ -21,12 +26,12 @@ export default function Leftbar({black}) {
         <div style={{ 
                 backgroundColor: fill,
                 color: stroke,
-                width: '150px',
+                width: `${leftwidth}px`,
                 height: '700px',
                 border: '1px solid black',
                 position: 'relative',            
             }} >
-            {renderShape(shapes['knight'], 'knight')}
+            {Object.keys(shapes).map(key => renderShape(shapes[key], key))}
         </div>
     )
 }
