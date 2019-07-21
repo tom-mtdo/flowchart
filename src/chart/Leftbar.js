@@ -9,7 +9,7 @@ export default function Leftbar({black}) {
     const stroke = black ? 'white' : 'black';
 
     const [shapes, setShapes] = useState({
-        knight: {top: 10, left: 20},
+        knight: {shape: 'rectangle', name: '', top: 10, left: 20},
     });
 
     const renderShape = (item, id) => {

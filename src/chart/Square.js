@@ -56,7 +56,8 @@ export default function Square({black}) {
             if (shapes[item.id]){
                 moveShape(item.id, left, top);
             } else {
-                addShape(Math.random(), item.shape, '', left - 150, top);
+                const uuidv1 = require('uuid/v1');
+                addShape(uuidv1(), item.shape, '', left - 150, top);
             }
         }
     });
