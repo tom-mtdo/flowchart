@@ -16,35 +16,9 @@ export default function Leftbar({black}) {
         return <Knight id={id} {...item}/>
     }
 
-    const moveShape = useCallback(
-        (id, left, top) => {
-            setShapes(
-                {
-                    [id]: {
-                        instanceId: '',
-                        top: top,
-                        left: left
-                    }
-                }   
-            )
-        },
-        [shapes],        
-    )
-
-    const [, drop] = useDrop({
-        accept: ItemTypes.KNIGHT,
-        drop: (item, monitor) => {
-            const delta = monitor.getDifferenceFromInitialOffset();
-
-            let left = Math.round(item.left + delta.x);
-			let top = Math.round(item.top + delta.y);
-
-            moveShape(item.id, left, top);
-        }
-    });
-
     return (
-        <div ref={drop} style={{ 
+        // <div ref={drop} style={{ 
+        <div style={{ 
                 backgroundColor: fill,
                 color: stroke,
                 width: '150px',

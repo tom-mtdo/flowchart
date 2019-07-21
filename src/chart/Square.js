@@ -53,11 +53,11 @@ export default function Square({black}) {
 
             let left = Math.round(item.left + delta.x);
             let top = Math.round(item.top + delta.y);
-            alert('intanceid: ' + item.instanceid);
+            // alert('delta.x: ' + delta.x + 'left');
             if (item.instanceid){
                 moveShape(item.id, left, top);
             } else {
-                addShape(Math.random(), item.shape, '', 0, 0);
+                addShape(Math.random(), item.shape, '', left - 150, top);
             }
         }
     });
