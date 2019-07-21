@@ -9,7 +9,7 @@ export default function Square({black}) {
     const stroke = black ? 'white' : 'black';
     
     const [shapes, setShapes] = useState({
-        shape1: {instanceid: 'shape1', shape: 'rectangle', name: 'process1', top: 10, left: 20},
+        shape1: {shape: 'rectangle', name: 'process1', top: 10, left: 20},
     });
 
     const addShape = useCallback(
@@ -17,7 +17,6 @@ export default function Square({black}) {
             setShapes({
                 ...shapes,
                 [id]: {
-                    instanceid: id,
                     shape, name, left, top
                 }
             });
@@ -54,7 +53,7 @@ export default function Square({black}) {
             let left = Math.round(item.left + delta.x);
             let top = Math.round(item.top + delta.y);
             // alert('delta.x: ' + delta.x + 'left');
-            if (item.instanceid){
+            if (shapes[item.id]){
                 moveShape(item.id, left, top);
             } else {
                 addShape(Math.random(), item.shape, '', left - 150, top);

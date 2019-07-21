@@ -3,7 +3,7 @@ import { ItemTypes } from './Constants'
 import { useDrag } from 'react-dnd'
 
 // instanceid: 'shape1', shape: 'rectangle', name: 'process1', top: 10, left: 20
-export default function Knight({id, instanceid, shape, name, left, top}) {
+export default function Knight({id, shape, name, left, top}) {
     const getStyles = (left, top, isDragging) => {
         const transform = `translate3d(${left}px, ${top}px, 0)`;
         return {
@@ -21,7 +21,7 @@ export default function Knight({id, instanceid, shape, name, left, top}) {
     }
 
     const [{isDragging}, drag] = useDrag({
-        item: { type: ItemTypes.KNIGHT, id, instanceid, shape, name, left, top },
+        item: { type: ItemTypes.KNIGHT, id, shape, name, left, top },
         collect: monitor => ({
             isDragging: !!monitor.isDragging(),
         }),
