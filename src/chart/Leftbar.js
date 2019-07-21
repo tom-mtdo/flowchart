@@ -9,7 +9,7 @@ export default function Leftbar({black}) {
     const stroke = black ? 'white' : 'black';
 
     const [shapes, setShapes] = useState({
-        knight: {top: 10, left: 20},
+        knight: {instanceId: '', top: 10, left: 20},
     });
 
     const renderShape = (item, id) => {
@@ -21,6 +21,7 @@ export default function Leftbar({black}) {
             setShapes(
                 {
                     [id]: {
+                        instanceId: '',
                         top: top,
                         left: left
                     }

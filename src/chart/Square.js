@@ -1,14 +1,49 @@
-import React from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import Knight from './Knight';
 import { ItemTypes } from './Constants';
-import { useDrop } from 'react-dnd'
+import { useDrop } from 'react-dnd';
+import update from 'immutability-helper';
 
-export default function Square({black, shapes, moveShape}) {
+export default function Square({black}) {
     const fill = black ? 'black' : 'white';
     const stroke = black ? 'white' : 'black';
+    
+    const [shapes, setShapes] = useState({
+        shape1: {instanceid: 'shape1', shape: 'rectangle', name: 'process1', top: 10, left: 20},
+    });
 
+    const addShape = useCallback(
+        (id, shape, name, left, top) => {
+            setShapes({
+                ...shapes,
+                [id]: {
+                    instanceid: id,
+                    shape, name, left, top
+                }
+            });
+        },
+        [shapes],        
+    )
+    
+    const moveShape = useCallback(
+        (id, left, top) => {
+            setShapes( 
+                update(shapes, { 
+                    [id]: {
+                        $merge: { top, left },
+                    }
+                })
+            );
+        },
+        [shapes],        
+    )
     const renderShape = (item, id) => {
-        return <Knight id={id} {...item}/>
+        switch (item.shape) {
+            case 'rectangle':
+                return <Knight id={id} {...item}/>
+            default:
+                return <Knight id={id} {...item}/>        
+        }
     }
 
     const [, drop] = useDrop({
@@ -17,9 +52,13 @@ export default function Square({black, shapes, moveShape}) {
             const delta = monitor.getDifferenceFromInitialOffset();
 
             let left = Math.round(item.left + delta.x);
-			let top = Math.round(item.top + delta.y);
-
-            moveShape(item.id, left, top);
+            let top = Math.round(item.top + delta.y);
+            alert('intanceid: ' + item.instanceid);
+            if (item.instanceid){
+                moveShape(item.id, left, top);
+            } else {
+                addShape(Math.random(), item.shape, '', 0, 0);
+            }
         }
     });
 
@@ -32,9 +71,14 @@ export default function Square({black, shapes, moveShape}) {
         position: 'relative',            
     }
 
+    useEffect( () => {
+            addShape('shape2', 'rectangle', 'process2', 100, 100);
+        },[]
+    );
+
     return (
         <div ref={drop} style={styles} >
-            {renderShape(shapes['knight1'], 'knight1')}
+            {Object.keys(shapes).map(key => renderShape(shapes[key], key))}
         </div>
     )
 }
