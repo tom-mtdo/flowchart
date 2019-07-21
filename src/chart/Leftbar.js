@@ -9,7 +9,7 @@ export default function Leftbar({black}) {
     const stroke = black ? 'white' : 'black';
 
     const [shapes, setShapes] = useState({
-        knight1: {top: 10, left: 20},
+        knight: {top: 10, left: 20},
     });
 
     const renderShape = (item, id) => {
@@ -51,7 +51,7 @@ export default function Leftbar({black}) {
                 border: '1px solid black',
                 position: 'relative',            
             }} >
-            {renderShape(shapes['knight1'], 'knight1')}
+            {renderShape(shapes['knight'], 'knight')}
         </div>
     )
 }

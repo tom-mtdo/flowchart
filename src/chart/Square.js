@@ -1,34 +1,15 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React from 'react';
 import Knight from './Knight';
-import update from 'immutability-helper'
 import { ItemTypes } from './Constants';
 import { useDrop } from 'react-dnd'
 
-export default function Square({black}) {
+export default function Square({black, shapes, moveShape}) {
     const fill = black ? 'black' : 'white';
     const stroke = black ? 'white' : 'black';
-
-    const [shapes, setShapes] = useState({
-        knight1: {top: 10, left: 20},
-    });
 
     const renderShape = (item, id) => {
         return <Knight id={id} {...item}/>
     }
-
-    const moveShape = useCallback(
-        (id, left, top) => {
-            setShapes(
-                {
-                    [id]: {
-                        top: top,
-                        left: left
-                    }
-                }   
-            )
-        },
-        [shapes],        
-    )
 
     const [, drop] = useDrop({
         accept: ItemTypes.KNIGHT,

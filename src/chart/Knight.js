@@ -15,7 +15,7 @@ export default function Knight({id, left, top}) {
             height: isDragging ? 0 : '',
             fontSize: 25,
             fontWeight: 'bold',
-            cursor: 'move',    
+            cursor: 'move'
         }
     }
 
