@@ -1,8 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import Rectangle from './Rectangle';
-import update from 'immutability-helper'
-import { ItemTypes } from './Constants';
-import { useDrop } from 'react-dnd'
+import Arrow from './Arrow';
 
 export default function Leftbar({black,leftwidth}) {
     const fill = black ? 'black' : 'white';
@@ -10,12 +8,15 @@ export default function Leftbar({black,leftwidth}) {
 
     const [shapes, setShapes] = useState({
         rectangle: {shape: 'rectangle', name: 'Process', top: 10, left: 20},
+        arrow: {shape: 'arrow', name: 'Flow', top: 110, left: 20},
     });
 
     const renderShape = (item, id) => {
         switch (item.shape) {
             case 'rectangle':
                 return <Rectangle id={id} {...item}/>
+            case 'arrow':
+                return <Arrow id={id} {...item}/>
             default:
                 return <Rectangle id={id} {...item}/>        
         }

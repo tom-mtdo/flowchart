@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import Rectangle from './Rectangle';
+import Arrow from './Arrow';
 import { ItemTypes } from './Constants';
 import { useDrop } from 'react-dnd';
 import update from 'immutability-helper';
@@ -40,6 +41,8 @@ export default function Square({black, leftwidth}) {
         switch (item.shape) {
             case 'rectangle':
                 return <Rectangle id={id} {...item}/>
+            case 'arrow':
+                return <Arrow id={id} {...item}/>    
             default:
                 return <Rectangle id={id} {...item}/>        
         }
