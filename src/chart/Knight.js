@@ -2,9 +2,25 @@ import React from 'react'
 import { ItemTypes } from './Constants'
 import { useDrag } from 'react-dnd'
 
-export default function Knight() {
+export default function Knight({id, left, top}) {
+    const getStyles = (left, top, isDragging) => {
+        const transform = `translate3d(${left}px, ${top}px, 0)`;
+        return {
+            position: 'absolute',
+            transform,
+            WebkitTransform: transform,
+            // IE fallback: hide the real node using CSS when dragging
+		    // because IE will ignore our custom "empty image" drag preview.
+            opacity: isDragging ? 0.5 : 1,
+            height: isDragging ? 0 : '',
+            fontSize: 25,
+            fontWeight: 'bold',
+            cursor: 'move',    
+        }
+    }
+
     const [{isDragging}, drag] = useDrag({
-        item: { type: ItemTypes.KNIGHT },
+        item: { type: ItemTypes.KNIGHT, id, left, top },
         collect: monitor => ({
             isDragging: !!monitor.isDragging(),
         }),
@@ -13,12 +29,7 @@ export default function Knight() {
   return (
     <span
         ref={drag}
-        style={{
-        opacity: isDragging ? 0.5 : 1,
-        fontSize: 25,
-        fontWeight: 'bold',
-        cursor: 'move',
-        }}
+        style={getStyles(left, top, isDragging)}
     >
         ♘
     </span>

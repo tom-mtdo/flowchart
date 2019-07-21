@@ -9,7 +9,7 @@ export default function Board() {
     <DndProvider backend={HTML5Backend}>
         <div style={{height: '100%'}}>
             <Square black={false}>
-                <Knight />
+            
             </Square>
         </div>
     </DndProvider>
