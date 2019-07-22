@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import Square from './Square';
 import Leftbar from './Leftbar';
-import Editable from './Editable';
 import { DndProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend';
 
@@ -14,7 +13,6 @@ export default function Board() {
     return (
         <DndProvider backend={HTML5Backend}>
             <div style={styles}>
-                <Editable/>
                 <Leftbar black={false} leftwidth={150}/>
                 <Square black={false} leftwidth={150}/>
             </div>

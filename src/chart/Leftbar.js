@@ -16,13 +16,13 @@ export default function Leftbar({black,leftwidth}) {
     const renderShape = (item, id) => {
         switch (item.shape) {
             case 'rectangle':
-                return <Rectangle id={id} {...item}/>
+                return <Rectangle key={id} id={id} {...item}/>
             case 'arrow':
-                return <Arrow id={id} {...item}/>
+                return <Arrow key={id} id={id} {...item}/>
             case 'document':
-                return <Document id={id} {...item}/>    
+                return <Document key={id} id={id} {...item}/>    
             default:
-                return <Rectangle id={id} {...item}/>        
+                return <Rectangle key={id} id={id} {...item}/>        
         }
     }
 

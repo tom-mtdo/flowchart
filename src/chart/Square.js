@@ -11,7 +11,7 @@ export default function Square({black, leftwidth}) {
     const stroke = black ? 'white' : 'black';
     
     const [shapes, setShapes] = useState({
-        shape1: {shape: 'rectangle', name: 'process1', top: 10, left: 20},
+        // shape1: {shape: 'rectangle', name: 'process1', top: 10, left: 20},
     });
 
     const addShape = useCallback(
@@ -38,10 +38,11 @@ export default function Square({black, leftwidth}) {
         },
         [shapes],        
     )
+
     const renderShape = (item, id) => {
         switch (item.shape) {
             case 'rectangle':
-                return <Rectangle id={id} {...item}/>
+                return <Rectangle id={id} updateName={updateShapeName} {...item}/>
             case 'arrow':
                 return <Arrow id={id} {...item}/>    
             case 'document':
@@ -58,7 +59,6 @@ export default function Square({black, leftwidth}) {
 
             let left = Math.round(item.left + delta.x);
             let top = Math.round(item.top + delta.y);
-            // alert('delta.x: ' + delta.x + 'left');
             if (shapes[item.id]){
                 moveShape(item.id, left, top);
             } else {
@@ -77,20 +77,23 @@ export default function Square({black, leftwidth}) {
         position: 'relative',            
     }
 
-    useEffect( () => {
-            addShape('shape2', 'rectangle', 'process2', 100, 100);
-        },[]
-    );
+    const updateShapeName = (id, value) => {
+        // alert('Id: ' + id + ", value: " + value);
+        setShapes( 
+            update(shapes, { 
+                [id]: {
+                    $merge: { name: value },
+                }
+            })
+        );
+    }
+
+    // useEffect( () => {
+    //         addShape('shape2', 'rectangle', 'process2', 100, 100);
+    //     },[]
+    // );
 
     return (
-        // <>
-        //     <p>Hello</p>
-        //     <div contenteditable="true">
-        //         <svg height="30" width="200" style={{border: '1px solid'}}>
-        //             <text x="0" y="15">This is SVG</text>
-        //         </svg>
-        //     </div>
-        //     <p>World</p>
             <div ref={drop} style={styles} >
                 {Object.keys(shapes).map(key => renderShape(shapes[key], key))}
             </div>

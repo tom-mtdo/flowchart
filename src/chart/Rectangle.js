@@ -5,7 +5,9 @@ import { isAbsolute } from 'path';
 // import ContentEditable from 'react-contenteditable';
 
 // instanceid: 'shape1', shape: 'rectangle', name: 'process1', top: 10, left: 20
-export default function Rectangle({id, shape, name, left, top}) {
+export default function Rectangle({id, shape, name, left, top, updateName}) {
+
+    const [showShapeName, setShowShapeName] = useState( false );
 
     const getStyles = (left, top, isDragging) => {
         const transform = `translate3d(${left}px, ${top}px, 0)`;
@@ -25,6 +27,24 @@ export default function Rectangle({id, shape, name, left, top}) {
         }
     }
 
+    const svgStyles = {
+        position: 'absolute',
+        top: '0',
+        left: '0',
+        'zIndex': '8',
+        width: '106px',
+        height: '76px',
+    };
+
+    const shapeNameStyles = {
+        position: 'absolute',
+        'zIndex': '9',
+        top: '25px',
+        left: '3px',
+        width: '88px',
+        display: showShapeName ? 'block' : 'none'
+    }
+
     const [{isDragging}, drag] = useDrag({
         item: { type: ItemTypes.SHAPE, id, shape, name, left, top },
         collect: monitor => ({
@@ -32,38 +52,17 @@ export default function Rectangle({id, shape, name, left, top}) {
         }),
     })
 
-    const [localName, setName] = useState( 'Shape 1' );
-    const [showShapeName, setShowShapeName] = useState( false );
-
     const handleChange = evt => {
-        setName(evt.target.value);
+        updateName(id, evt.target.value);
     }
-
-    const svgStyles = {
-        position: 'absolute',
-        top: '0',
-        left: '0',
-        'z-index': '8',
-        width: '106px',
-        height: '76px',
-    };
-
-    const shapeNameStyles = {
-        position: 'absolute',
-        'z-index': '9',
-        top: '25px',
-        left: '3px',
-        width: '88px',
-        display: showShapeName ? 'block' : 'none'
-    }
-
+    
     const nameClick = () => {
         setShowShapeName(true);
     }
     
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
-            setShowShapeName(false);
+            hideNameInput();
         }
     }
 
@@ -75,9 +74,9 @@ export default function Rectangle({id, shape, name, left, top}) {
         <div ref={drag} style={getStyles(left, top, isDragging)}>
             <svg style={svgStyles}>
                 <rect width="100" height="70" style={{fill: 'rgb(92, 155, 211)', 'strokeWidth':3, stroke: 'rgb(70, 118, 159)'}} />
-                <text textAnchor="middle" x="50" y="40" fill="white" onClick={nameClick}>{localName}</text>
+                <text textAnchor="middle" x="50" y="40" fill="white" onClick={nameClick}>{name}</text>
             </svg>
-            <input value={localName} onChange={handleChange} style={shapeNameStyles} onKeyDown={handleKeyDown} onBlur={hideNameInput}></input>
+            <input value={name} onChange={handleChange} style={shapeNameStyles} onKeyDown={handleKeyDown} onBlur={hideNameInput}></input>
         </div>
     
     )
