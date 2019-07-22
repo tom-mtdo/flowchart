@@ -5,7 +5,7 @@ import { isAbsolute } from 'path';
 // import ContentEditable from 'react-contenteditable';
 
 // instanceid: 'shape1', shape: 'rectangle', name: 'process1', top: 10, left: 20
-export default function Rectangle({id, shape, name, left, top, updateName}) {
+export default function Rectangle({id, shape, name, left, top, width, height, updateName, children}) {
 
     const [showShapeName, setShowShapeName] = useState( false );
 
@@ -22,8 +22,8 @@ export default function Rectangle({id, shape, name, left, top, updateName}) {
             fontSize: 15,
             fontWeight: 'bold',
             cursor: 'move',
-            width: '108px',
-            height: '78px',    
+            width: `${width}px`,
+            height: `${height}px`,    
         }
     }
 
@@ -46,18 +46,22 @@ export default function Rectangle({id, shape, name, left, top, updateName}) {
     }
 
     const [{isDragging}, drag] = useDrag({
-        item: { type: ItemTypes.SHAPE, id, shape, name, left, top },
+        item: { type: ItemTypes.SHAPE, id, shape, name, left, top, width, height },
         collect: monitor => ({
             isDragging: !!monitor.isDragging(),
         }),
     })
 
     const handleChange = evt => {
-        updateName(id, evt.target.value);
+        if (updateName) {
+            updateName(id, evt.target.value);
+        }
     }
     
     const nameClick = () => {
-        setShowShapeName(true);
+        if (updateName) {
+            setShowShapeName(true);
+        }
     }
     
     const handleKeyDown = (e) => {
@@ -73,8 +77,8 @@ export default function Rectangle({id, shape, name, left, top, updateName}) {
     return (
         <div ref={drag} style={getStyles(left, top, isDragging)}>
             <svg style={svgStyles}>
-                <rect width="100" height="70" style={{fill: 'rgb(92, 155, 211)', 'strokeWidth':3, stroke: 'rgb(70, 118, 159)'}} />
-                <text textAnchor="middle" x="50" y="40" fill="white" onClick={nameClick}>{name}</text>
+                {children}
+                <text textAnchor="middle" x={`${width/2}px`} y={`${height/2}px`} fill="white" onClick={nameClick}>{name}</text>
             </svg>
             <input value={name} onChange={handleChange} style={shapeNameStyles} onKeyDown={handleKeyDown} onBlur={hideNameInput}></input>
         </div>

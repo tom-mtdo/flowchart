@@ -1,10 +1,9 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import Rectangle from './Rectangle';
-import Arrow from './Arrow';
-import Document from './Document';
+import Shape from './Shape';
 import { ItemTypes } from './Constants';
 import { useDrop } from 'react-dnd';
 import update from 'immutability-helper';
+import {rect, arrow, docu} from './svg';
 
 export default function Square({black, leftwidth}) {
     const fill = black ? 'black' : 'white';
@@ -15,11 +14,11 @@ export default function Square({black, leftwidth}) {
     });
 
     const addShape = useCallback(
-        (id, shape, name, left, top) => {
+        (id, shape, name, left, top, width, height) => {
             setShapes({
                 ...shapes,
                 [id]: {
-                    shape, name, left, top
+                    shape, name, left, top, width, height
                 }
             });
         },
@@ -39,16 +38,28 @@ export default function Square({black, leftwidth}) {
         [shapes],        
     )
 
+    // const shapeProps = {
+    //     shape: 'rectangle', 
+    //     name: 'Process1', 
+    //     top: 10, 
+    //     left: 20,
+    //     id: 'id1',
+    //     width: 108, 
+    //     height: 78,
+    //     updateName: updateShapeName,
+    // }
+
+
     const renderShape = (item, id) => {
         switch (item.shape) {
             case 'rectangle':
-                return <Rectangle id={id} updateName={updateShapeName} {...item}/>
+                return <Shape key={id} id={id} updateName={updateShapeName} {...item}>{rect}</Shape>
             case 'arrow':
-                return <Arrow id={id} {...item}/>    
+                return <Shape key={id} id={id} updateName={updateShapeName} {...item}>{arrow}</Shape>
             case 'document':
-                return <Document id={id} {...item}/>    
+                return <Shape key={id} id={id} updateName={updateShapeName} {...item}>{docu}</Shape>
             default:
-                return <Rectangle id={id} {...item}/>        
+                return <Shape key={id} id={id} updateName={updateShapeName} {...item}>{rect}</Shape>
         }
     }
 
@@ -63,7 +74,7 @@ export default function Square({black, leftwidth}) {
                 moveShape(item.id, left, top);
             } else {
                 const uuidv1 = require('uuid/v1');
-                addShape(uuidv1(), item.shape, item.name, left - leftwidth, top);
+                addShape(uuidv1(), item.shape, item.name, left - leftwidth, top, item.width, item.height);
             }
         }
     });
@@ -94,9 +105,8 @@ export default function Square({black, leftwidth}) {
     // );
 
     return (
-            <div ref={drop} style={styles} >
-                {Object.keys(shapes).map(key => renderShape(shapes[key], key))}
-            </div>
-        // </>
+        <div ref={drop} style={styles} >
+            {Object.keys(shapes).map(key => renderShape(shapes[key], key))}
+        </div>
     )
 }
