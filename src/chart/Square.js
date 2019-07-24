@@ -85,6 +85,8 @@ export default function Square({black, leftwidth}) {
         width: '700px',
         height: '700px',
         border: '1px solid black',
+        borderTop: 'none',
+        borderLeft: 'none',
         position: 'relative',            
     }
 

@@ -1,11 +1,11 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Board from './chart/Board';
+import FlowChart from './chart/';
 
 function App() {
   return (
-    <Board/>
+    <FlowChart/>
   );
 }
 

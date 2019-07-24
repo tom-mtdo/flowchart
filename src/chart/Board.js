@@ -7,7 +7,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
 export default function Board() {
 
     const styles = {
-        height: '100%',
+        height: '900',
         display: 'flex',
     };
     return (

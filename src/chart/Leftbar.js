@@ -46,6 +46,7 @@ export default function Leftbar({black,leftwidth}) {
                 width: `${leftwidth}px`,
                 height: '700px',
                 border: '1px solid black',
+                borderTop: 'none',
                 position: 'relative',            
             }} >
             {Object.keys(shapes).map(key => renderShape(shapes[key], key))}
