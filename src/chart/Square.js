@@ -1,9 +1,10 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useContext } from 'react';
 import Shape from './Shape';
 import { ItemTypes } from './Constants';
 import { useDrop } from 'react-dnd';
 import update from 'immutability-helper';
 import {rect, arrow, docu} from './svg';
+import ChartContext from './common/ChartContext';
 
 export default function Square({black, leftwidth}) {
     const fill = black ? 'black' : 'white';
@@ -106,8 +107,11 @@ export default function Square({black, leftwidth}) {
     //     },[]
     // );
 
+    const chartContext = useContext(ChartContext);
+
     return (
         <div ref={drop} style={styles} >
+            <span>Context: {chartContext.eventEmitter}</span>
             {Object.keys(shapes).map(key => renderShape(shapes[key], key))}
         </div>
     )

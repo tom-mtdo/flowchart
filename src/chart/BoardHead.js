@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import ChartContext from './common/ChartContext';
 
-const BoardHead = (props, context) => {
+const BoardHead = () => {
 
     const styles = {
         height: '50px',
@@ -55,5 +55,4 @@ const BoardHead = (props, context) => {
     )
 }
 
-BoardHead.contextTypes = ChartContext;
 export default BoardHead;
