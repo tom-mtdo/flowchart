@@ -18,7 +18,6 @@ export default function Rectangle({id, shape, name, left, top, width, height, up
             // IE fallback: hide the real node using CSS when dragging
 		    // because IE will ignore our custom "empty image" drag preview.
             opacity: isDragging ? 0.5 : 1,
-            height: isDragging ? 0 : '',
             fontSize: 15,
             fontWeight: 'bold',
             cursor: 'move',

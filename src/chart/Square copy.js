@@ -7,32 +7,38 @@ import {rect, arrow, docu} from './svg';
 import ChartContext from './common/ChartContext';
 
 export default function Square({leftwidth}) {    
-    const styles = {
-        width: '700px',
-        height: '700px',
-        border: '1px solid black',
-        borderTop: 'none',
-        borderLeft: 'none',
-        position: 'relative',            
-    };
-
-    const [shapes, setShapes] = useState({
-        arrow: {shape: 'arrow', name: 'Flow', top: 110, left: 20, width: 108, height: 78},
-        rectangle1: {shape: 'rectangle', name: 'Process', top: 10, left: 20, width: 108, height: 78}
-    });
+    const [shapes, setShapes] = useState({});
 
     const addShape = (id, shape, name, left, top, width, height) => {
-        setShapes((previousShapes) => {
-            return({
-                ...previousShapes,
-                [id]: {
-                    shape, name, left, top, width, height
-                }
-            });
+        setShapes({
+            ...shapes,
+            [id]: {
+                shape, name, left, top, width, height
+            }
         });
     };
 
-    const updateShapeName = () => {};
+    const moveShape = (id, left, top) => {
+        setShapes(
+            update(shapes, { 
+                [id]: {
+                    $merge: { top, left },
+                }
+            })
+        );
+    };
+
+    // const shapeProps = {
+    //     shape: 'rectangle', 
+    //     name: 'Process1', 
+    //     top: 10, 
+    //     left: 20,
+    //     id: 'id1',
+    //     width: 108, 
+    //     height: 78,
+    //     updateName: updateShapeName,
+    // }
+
 
     const renderShape = (item, id) => {
         switch (item.shape) {
@@ -47,20 +53,55 @@ export default function Square({leftwidth}) {
         }
     }
 
+    const [, drop] = useDrop({
+        accept: ItemTypes.SHAPE,
+        drop: (item, monitor) => {
+            const delta = monitor.getDifferenceFromInitialOffset();
 
-    useEffect( () => {
-            addShape('shape2', 'rectangle', 'process2', 100, 100);
-        },[]
-    );
+            let left = Math.round(item.left + delta.x);
+            let top = Math.round(item.top + delta.y);
+            if (shapes[item.id]){
+                moveShape(item.id, left, top);
+            } else {
+                const uuidv1 = require('uuid/v1');
+                addShape(uuidv1(), item.shape, item.name, left - leftwidth, top, item.width, item.height);
+            }
+        }
+    });
 
+    const styles = {
+        width: '700px',
+        height: '700px',
+        border: '1px solid black',
+        borderTop: 'none',
+        borderLeft: 'none',
+        position: 'relative',            
+    }
+
+    const updateShapeName = (id, value) => {
+        setShapes( 
+            update(shapes, { 
+                [id]: {
+                    $merge: { name: value },
+                }
+            })
+        );
+    }
+
+    // useEffect( () => {
+    //         addShape('shape2', 'rectangle', 'process2', 100, 100);
+    //     },[]
+    // );
+
+    const cLength = shapes.length;
     const exportJson = () => {
+        alert('length: ' + cLength);
         const result = generateJson();
         displayJson(result);
     }
 
     const generateJson = () => {
         const ids = Object.keys(shapes);
-        alert('length: ' + ids.length);
         const returnJson = ids.map(shapeId => {
             return ({
                 "shape": shapes[shapeId].shape,
@@ -88,8 +129,7 @@ export default function Square({leftwidth}) {
     chartContext.eventEmitter.on('exportjson', exportJson);
 
     return (
-        <div style={styles} >
-            <button onClick={exportJson}>generate json</button>
+        <div ref={drop} style={styles} >
             {Object.keys(shapes).map(key => renderShape(shapes[key], key))}
         </div>
     )
