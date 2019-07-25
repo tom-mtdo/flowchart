@@ -5,9 +5,39 @@ import { useDrop } from 'react-dnd';
 import update from 'immutability-helper';
 import {rect, arrow, docu} from '../../assets/svg';
 import { styles, rightStyles, buttonStyles } from './Square.style';
+import styled from 'styled-components';
 
-export default function Square({leftwidth}) {    
+export default function Square({width, leftwidth}) {    
     const [shapes, setShapes] = useState({});
+    
+    const styles = {
+        width: `${width - leftwidth}px`,
+        height: '700px',
+        border: '1px solid black',
+        borderTop: 'none',
+        borderLeft: 'none',
+        position: 'relative',            
+    };
+    
+    const rightStyles = {
+        width: '100%',
+        textAlign: 'center',
+        padding: '10px 0 10px 0',
+        borderRight: '1px solid black',
+        fontSize: '15pt',
+        position: 'relative',
+    };
+    
+    const buttonStyles = {
+        position: 'absolute',
+        right: '10px',
+        height: '30px',
+        width: '130px',
+        fontSize: '11pt',
+        borderRadius: '6px',
+        backgroundColor: '#c7c7c7',
+        border: '2px solid #c3c3c3',
+    };
 
     const addShape = (id, shape, name, left, top, width, height) => {
         setShapes({
@@ -98,7 +128,7 @@ export default function Square({leftwidth}) {
     }
 
     return (
-        <div ref={drop} style={styles} >
+        <div ref={drop} style={styles}>
             <div style={rightStyles}>
                 <span>Canvas</span>
                 <button style={buttonStyles} onClick={exportJson}>Export JSON</button>

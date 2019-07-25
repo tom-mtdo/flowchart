@@ -2,9 +2,14 @@ import React, { useState, useCallback, useEffect } from 'react';
 import Shape from './Shape';
 import {rect, arrow, docu} from '../assets/svg';
 
-export default function Leftbar({black,leftwidth}) {
-    const fill = black ? 'black' : 'white';
-    const stroke = black ? 'white' : 'black';
+export default function Leftbar({leftwidth}) {
+    const styles = {
+        width: `${leftwidth}px`,
+        height: '700px',
+        border: '1px solid black',
+        borderTop: 'none',
+        position: 'relative',            
+    }
 
     const leftStyles = {
         width: '100%',
@@ -35,15 +40,7 @@ export default function Leftbar({black,leftwidth}) {
     }
 
     return (
-        <div style={{ 
-                backgroundColor: fill,
-                color: stroke,
-                width: `${leftwidth}px`,
-                height: '700px',
-                border: '1px solid black',
-                borderTop: 'none',
-                position: 'relative',            
-            }} >
+        <div style={styles} >
             <div style={leftStyles}>Shapes</div>
             {Object.keys(shapes).map(key => renderShape(shapes[key], key))}
         </div>

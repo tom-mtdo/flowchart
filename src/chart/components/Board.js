@@ -4,7 +4,7 @@ import Leftbar from './Leftbar';
 import { DndProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend';
 
-export default function Board() {
+export default function Board(props) {
 
     const styles = {
         height: '900',
@@ -13,8 +13,8 @@ export default function Board() {
     return (
         <DndProvider backend={HTML5Backend}>
             <div style={styles}>
-                <Leftbar black={false} leftwidth={150}/>
-                <Square black={false} leftwidth={150}/>
+                <Leftbar leftwidth={props.leftwidth}/>
+                <Square width={props.width} leftwidth={props.leftwidth} />
             </div>
         </DndProvider>
     )

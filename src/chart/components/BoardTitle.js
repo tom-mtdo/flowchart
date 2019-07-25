@@ -4,11 +4,11 @@ import Leftbar from './Leftbar';
 import { DndProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend';
 
-export default function BoardTitle() {
+export default function BoardTitle(props) {
 
     const styles = {
         height: '20px',
-        width: '849px',
+        width: `${props.width}px`,
         textAlign: 'center',
         backgroundColor: '#4474c4',
         color: 'white',

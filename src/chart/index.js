@@ -9,10 +9,13 @@ export default function FlowChart() {
         flexDirection: 'column',
     };
 
+    const leftWidth = 150;
+    const width = 900;
+
     return (
         <div style = {styles}>  
-            <BoardTitle />
-            <Board />
+            <BoardTitle width={width}/>
+            <Board width={width} leftwidth={leftWidth}/>
         </div>
     );
 }
