@@ -106,12 +106,14 @@ export default function Square({black, leftwidth}) {
     //         addShape('shape2', 'rectangle', 'process2', 100, 100);
     //     },[]
     // );
-
-    const chartContext = useContext(ChartContext);
+    
+    const eventEmitter = useContext(ChartContext);
+    eventEmitter.on('exportjson', function(data) {
+        alert('Hello');
+    });
 
     return (
         <div ref={drop} style={styles} >
-            <span>Context: {chartContext.eventEmitter}</span>
             {Object.keys(shapes).map(key => renderShape(shapes[key], key))}
         </div>
     )

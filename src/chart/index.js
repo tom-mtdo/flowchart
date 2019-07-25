@@ -3,6 +3,7 @@ import Board from './Board';
 import BoardHead from './BoardHead';
 import BoardTitle from './BoardTitle';
 import ChartContext from './common/ChartContext';
+import { eventEmitter } from './common/ChartContext';
 
 export default function FlowChart() {
     const styles = {
@@ -12,7 +13,7 @@ export default function FlowChart() {
     };
 
     return (
-        <ChartContext.Provider value={{eventEmitter: 'I am a emitter'}}>
+        <ChartContext.Provider value={eventEmitter}>
             <div style = {styles}>  
                 <BoardTitle />
                 <BoardHead />
