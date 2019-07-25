@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
-import { ItemTypes } from './Constants'
+import { ItemTypes } from '../common/Constants'
 import { useDrag } from 'react-dnd';
-import { isAbsolute } from 'path';
-// import ContentEditable from 'react-contenteditable';
 
 // instanceid: 'shape1', shape: 'rectangle', name: 'process1', top: 10, left: 20
 export default function Rectangle({id, shape, name, left, top, width, height, updateName, children}) {

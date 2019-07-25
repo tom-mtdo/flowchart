@@ -1,18 +1,17 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import Shape from './Shape';
-import {rect, arrow, docu} from './svg';
+import {rect, arrow, docu} from '../assets/svg';
 
 export default function Leftbar({black,leftwidth}) {
     const fill = black ? 'black' : 'white';
     const stroke = black ? 'white' : 'black';
 
-    // shape: 'rectangle', 
-    // name: 'Process1', 
-    // top: 10, 
-    // left: 20,
-    // id: 'id1',
-    // width: 108, 
-    // height: 78,
+    const leftStyles = {
+        width: '100%',
+        textAlign: 'center',
+        padding: '10px 0 10px 0',
+        fontSize: '15pt',
+    }
 
     const [shapes, setShapes] = useState({
         rectangle: {shape: 'rectangle', name: 'Process', top: 10, left: 20, width: 108, height: 78},
@@ -26,20 +25,16 @@ export default function Leftbar({black,leftwidth}) {
         switch (item.shape) {
             case 'rectangle':
                 return <Shape key={id} id={id} updateName={''} {...item}>{rect}</Shape>
-                // return <Rectangle key={id} id={id} {...item}/>
             case 'arrow':
                 return <Shape key={id} id={id} updateName={''} {...item}>{arrow}</Shape>
-                // return <Arrow key={id} id={id} {...item}/>
             case 'document':
                 return <Shape key={id} id={id} updateName={''} {...item}>{docu}</Shape>
-                // return <Document key={id} id={id} {...item}/>    
             default:
                 return <Shape key={id} id={id} updateName={''} {...item}>{rect}</Shape>
         }
     }
 
     return (
-        // <div ref={drop} style={{ 
         <div style={{ 
                 backgroundColor: fill,
                 color: stroke,
@@ -49,6 +44,7 @@ export default function Leftbar({black,leftwidth}) {
                 borderTop: 'none',
                 position: 'relative',            
             }} >
+            <div style={leftStyles}>Shapes</div>
             {Object.keys(shapes).map(key => renderShape(shapes[key], key))}
         </div>
     )
