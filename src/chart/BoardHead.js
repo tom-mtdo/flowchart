@@ -38,10 +38,10 @@ const BoardHead = () => {
     }
 
     // const theme = useContext(ThemeContext);
-    const eventEmitter = useContext(ChartContext);
+    const chartContext = useContext(ChartContext);
     const exportJson = () => {
         // alert('Hello world ' + emitter.eventEmitter);
-        eventEmitter.emit('exportjson', {});
+        chartContext.eventEmitter.emit('exportjson', {});
     }
 
     return (

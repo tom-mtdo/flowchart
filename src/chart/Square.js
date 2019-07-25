@@ -107,8 +107,8 @@ export default function Square({black, leftwidth}) {
     //     },[]
     // );
     
-    const eventEmitter = useContext(ChartContext);
-    eventEmitter.on('exportjson', function(data) {
+    const chartContext = useContext(ChartContext);
+    chartContext.eventEmitter.on('exportjson', function(data) {
         alert('Hello');
     });
 
