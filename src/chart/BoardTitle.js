@@ -4,7 +4,7 @@ import Leftbar from './Leftbar';
 import { DndProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend';
 
-export default function Board() {
+export default function BoardTitle() {
 
     const styles = {
         height: '20px',

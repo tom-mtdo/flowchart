@@ -1,10 +1,7 @@
-import React, { useState, useCallback } from 'react';
-import Square from './Square';
-import Leftbar from './Leftbar';
-import { DndProvider } from 'react-dnd'
-import HTML5Backend from 'react-dnd-html5-backend';
+import React, { useContext } from 'react';
+import ChartContext from './common/ChartContext';
 
-export default function Board() {
+const BoardHead = (props, context) => {
 
     const styles = {
         height: '50px',
@@ -40,8 +37,11 @@ export default function Board() {
         border: '2px solid #c3c3c3',
     }
 
+    // const theme = useContext(ThemeContext);
+    const emitter = useContext(ChartContext);
+
     const exportJson = () => {
-        alert('Hello world');
+        alert('Hello world ' + emitter.eventEmitter);
     }
 
     return (
@@ -54,3 +54,6 @@ export default function Board() {
         </div>
     )
 }
+
+BoardHead.contextTypes = ChartContext;
+export default BoardHead;
