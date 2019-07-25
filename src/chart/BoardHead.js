@@ -37,10 +37,8 @@ const BoardHead = () => {
         border: '2px solid #c3c3c3',
     }
 
-    // const theme = useContext(ThemeContext);
     const chartContext = useContext(ChartContext);
     const exportJson = () => {
-        // alert('Hello world ' + emitter.eventEmitter);
         chartContext.eventEmitter.emit('exportjson', {});
     }
 

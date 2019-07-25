@@ -92,7 +92,6 @@ export default function Square({black, leftwidth}) {
     }
 
     const updateShapeName = (id, value) => {
-        // alert('Id: ' + id + ", value: " + value);
         setShapes( 
             update(shapes, { 
                 [id]: {
